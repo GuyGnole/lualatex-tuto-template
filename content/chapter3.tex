@@ -1,0 +1,106 @@
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Utilisation de Lua\LaTeX{}}
+
+\section{Création d'un document}
+
+Pour créer un document avec Lua\LaTeX{}, ouvrez un dossier vide dans votre éditeur de texte. La structure de votre dossier est à votre convenance, mais je vous recommande d'adopter une structure de dossier claire et organisée, comme celle-ci :
+\begin{itemize}
+    \item \texttt{content/}
+    \begin{itemize}
+        \item \texttt{chapter1.tex}
+        \item \texttt{chapter2.tex}
+        \item \texttt{chapter3.tex}
+        \item \texttt{main.tex}
+    \end{itemize}
+    \item \texttt{img/}
+    \begin{itemize}
+        \item \texttt{image1.png}
+        \item \texttt{image2.png}
+        \item \texttt{image3.png}
+    \end{itemize}
+    \item \texttt{utils/}
+    \begin{itemize}
+        \item \texttt{preamble.tex}
+    \end{itemize}
+\end{itemize}
+
+Commencez par créer un fichier \texttt{main.tex} dans le dossier racine de votre projet, et copiez le contenu suivant dans ce fichier :
+\begin{verbatim}
+\documentclass{scrreprt}
+
+\input{./utils/preamble}
+
+\begin{document}
+
+\subfile{content/chapter1}
+
+\end{document}
+\end{verbatim}
+
+Ensuite, créez un fichier \texttt{preamble.tex} dans le dossier \texttt{utils/}, et copiez le contenu suivant dans ce fichier :
+
+\begin{verbatim}
+%%% Preamble
+
+%%% Packages
+
+%% Couleurs
+\usepackage{xcolor}
+% Définition de la couleur bleu foncé
+\definecolor{myblue}{RGB}{0, 0, 139}
+
+%% Liens et références
+\usepackage{hyperref}
+% Configuration des liens hypertexte
+\hypersetup{
+    colorlinks=true,
+    linkcolor=myblue,
+    urlcolor=myblue,
+}
+
+\usepackage{subfiles} % Best loaded last in the preamble
+\end{verbatim}
+
+Enfin, créez un fichier \texttt{chapter1.tex} dans le dossier \texttt{content/}, et copiez le contenu suivant dans ce fichier :
+
+\begin{verbatim}
+\documentclass[../main.tex]{subfiles}
+
+\begin{document}
+
+\chapter{Chapitre 1}
+
+Ceci est le premier chapitre de votre document.
+
+\end{document}
+\end{verbatim}
+
+\subsection{Explication de la structure du document}
+
+Le fichier \texttt{main.tex} est le fichier principal de votre document. Il contient les commandes de base pour définir le type de document, charger les packages nécessaires, et inclure les différents chapitres de votre document. La première ligne de ce fichier est la commande \texttt{\textbackslash{}documentclass\{scrreprt\}}, qui définit le type de document comme un rapport. Cela correspond à un document structuré en chapitres, ce qui est adapté pour la plupart des documents académiques ou techniques.
+
+La deuxième ligne de ce fichier est la commande \texttt{\textbackslash{}input\{./utils/preamble\}}, qui charge les packages nécessaires à la compilation de votre document. Par souci de clarté et d'organisation, j'ai choisi de stocker les différents packages nécessaires à la compilation de votre document dans un fichier \texttt{preamble.tex}, que j'ai placé dans un dossier \texttt{utils/}. Vous pouvez bien sûr stocker ces packages directement dans le fichier \texttt{main.tex}, mais je vous recommande de les stocker dans un fichier séparé pour plus de clarté.
+
+La troisième ligne de ce fichier est la commande \texttt{\textbackslash{}begin\{document\}}, qui indique le début du contenu de votre document. La quatrième ligne de ce fichier est la commande \texttt{\textbackslash{}subfile\{content/chapter1\}}, qui inclut le contenu du fichier \texttt{chapter1.tex} dans le document. La cinquième ligne de ce fichier est la commande \texttt{\textbackslash{}end\{document\}}, qui indique la fin du contenu de votre document.
+
+Le fichier \texttt{preamble.tex} contient les packages nécessaires à la compilation de votre document. Dans cet exemple, j'ai choisi de charger deux packages : le package \texttt{xcolor}, qui permet de définir des couleurs, et le package \texttt{hyperref}, qui permet de configurer les liens hypertexte. J'ai également chargé le package \texttt{subfiles}, qui permet d'inclure des fichiers \texttt{.tex} dans d'autres fichiers \texttt{.tex}.
+
+Le fichier \texttt{chapter1.tex} est le premier chapitre de votre document. Il contient les commandes de base pour définir le type de document, charger les packages nécessaires, et inclure le contenu de ce chapitre dans le document. La première ligne de ce fichier est la commande \texttt{\textbackslash{}documentclass[../main.tex]\{subfiles\}}, qui indique que ce fichier est un sous-fichier du fichier \texttt{main.tex}. La deuxième ligne de ce fichier est la commande \texttt{\textbackslash{}begin\{document\}}, qui indique le début du contenu de ce chapitre. La troisième ligne de ce fichier est la commande \texttt{\textbackslash{}chapter\{Chapitre 1\}}, qui indique le début du premier chapitre de votre document. La quatrième ligne de ce fichier est le contenu de ce chapitre. La cinquième ligne de ce fichier est la commande \texttt{\textbackslash{}end\{document\}}, qui indique la fin du contenu de ce chapitre.
+
+% ecrire en italique
+\textit{Note :} Ceci n'est qu'un exemple minimaliste pour vous aider à démarrer. Vous pouvez bien sûr ajouter d'autres fichiers \texttt{.tex} pour créer un document plus complexe, et vous pouvez également ajouter d'autres packages dans le fichier \texttt{preamble.tex} pour étendre les fonctionnalités de votre document. Je vous recommande de consulter la documentation officielle de \LaTeX{} et également à faire vos propre recherches pour en apprendre plus sur les différentes fonctionnalités de \LaTeX{}.
+Vous pouvez également consulter l'intégalité de ce document sur \url{https://github.com/GuyGnole/lualatex-tuto-template}.
+
+\section{Compilation du document}
+
+Pour compiler votre document, ouvrez un terminal, et placez-vous dans le dossier racine de votre projet. Ensuite, exécutez la commande suivante :
+\begin{verbatim}
+lualatex ./content/main.tex
+\end{verbatim}
+Ou utiliser le bouton de compilation de votre éditeur de texte si celui-ci le permet.
+
+
+\end{document}
